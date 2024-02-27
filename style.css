@@ -183,7 +183,7 @@ body{
 }
 
 button{
-    width: 364px;
+    width: 100%;
     height: 61px;
     border-radius: 50px;
     background-color: #cbcbcb;
@@ -194,6 +194,8 @@ button{
     font-size: 20px;
     line-height: 24px;
     color: #FFFFFF;
+}
 
-    
+.confirmar-pedido{
+    background-color: #32B72F;
 }
