@@ -8,6 +8,10 @@ font-family: "Righteous", sans-serif;
 font-family: "Roboto", sans-serif;
 */
 
+*{
+   box-sizing: border-box; 
+}
+
 body{
     background-color: #cbcbcb;
 }
@@ -72,11 +76,21 @@ body{
     margin-bottom: 17px;
 }
 
-.pratos{
+.pratos,
+.bebidas,
+.sobremesas{
     display: flex;
     width: 100%;
 
     overflow-x: scroll
+}
+
+.selecionado{
+    border: 3px solid #32B72F;
+}
+
+.selecionado .check{
+    opacity: 1;
 }
 
 .prato{
@@ -102,12 +116,24 @@ body{
     right: 10px;
 }
 
+ .pratos .prato.selecionado .check{
+    opacity: 1;
+}
+
+.bebidas .prato.selecionado .check{
+    opacity: 1;
+}
+
+.sobremesas .prato.selecionado .check{
+    opacity: 1;
+}
+
 .prato > img,
 .prato h1,
 .prato h2,
 .prato p{
-    margin-left: 15px;
-    margin-right: 15px;
+    padding: 0 10px;
+    margin-left: 6px;
 }
 
 .prato img{
