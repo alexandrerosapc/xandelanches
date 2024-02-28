@@ -1,5 +1,7 @@
-let tPrato, tBebida, tSobremesa
-let pPrato, pBebida, pSobremesa
+let tPrato, tBebida, tSobremesa;
+let pPrato, pBebida, pSobremesa;
+
+let msg;
 
 function selecionarPrato(escolha1, seletorPrato){
    const busca1 = document.querySelector('.pratos .selecionado');
@@ -56,8 +58,8 @@ function selecionarBebida(escolha2, seletorBebida){
      if( tPrato !== undefined){
         if ( tBebida !== undefined){
             if ( tSobremesa !== undefined){                
-                const botao = document.querySelector('button');
-                botao.classList.add('confirmar-pedido');
+                const botao = document.querySelector('.container-bot button');
+                botao.classList.add('confirmacao');
                 botao.innerHTML = 'Fechar Pedido';
             }
         }
@@ -66,7 +68,66 @@ function selecionarBebida(escolha2, seletorBebida){
 }
 
 
+
 function finalizarPedido(){
+    
+    
+    if ( tPrato !== undefined){
+        if ( tBebida !== undefined){
+            if ( tSobremesa !== undefined){
+                pPrato = pPrato.replace('R$ ','');
+                pBebida = pBebida.replace('R$ ','');
+                pSobremesa = pSobremesa.replace('R$ ','');
+
+                pPrato = pPrato.replace(',','.');
+                pBebida = pBebida.replace(',','.');
+                pSobremesa = pSobremesa.replace(',','.');
+
+                const soma = Number(pPrato) + Number(pBebida) + Number(pSobremesa);
+
+
+                let msg = `Olá, gostaria de fazer o pedido:
+                - Prato: ${tPrato} 
+                - Bebida: ${tBebida}
+                - Sobremesa: ${tSobremesa}
+                Total: R$${soma.toFixed(2)}`;
+
+                const msgWP = encodeURIComponent(msg)
+                const telaFechamento = document.querySelector('.overlay');
+                telaFechamento.classList.remove('escondido');
+
+                // preencher os elemento da tela de fechamento
+                const nomePrato = document.querySelector('.comida .nome');
+                nomePrato.innerHTML = tPrato;
+                const precoPrato = document.querySelector('.comida .preco');
+                precoPrato.innerHTML = pPrato;
+
+                const nomeBebida = document.querySelector('.bebida .nome');
+                nomeBebida.innerHTML = tBebida;
+                const precoBebida = document.querySelector('.bebida .preco');
+                precoBebida.innerHTML = pBebida;
+
+                const nomeSobremesa = document.querySelector('.sobremesa .nome');
+                nomeSobremesa.innerHTML = tSobremesa;
+                const precoSobremesa = document.querySelector('.sobremesa .preco');
+                precoSobremesa.innerHTML = pSobremesa;
+
+                const elementoTotal = document.querySelector('.total .preco-total');
+                elementoTotal.innerHTML = `R$ ${soma.toFixed(2)}`;
+            }
+        }
+    }
+}
+
+
+
+function cancelar(){
+    const telaFechamento = document.querySelector('.overlay');
+    telaFechamento.classList.add('escondido');
+    
+}
+
+function enviarWP(){  
     pPrato = pPrato.replace('R$ ','');
     pBebida = pBebida.replace('R$ ','');
     pSobremesa = pSobremesa.replace('R$ ','');
@@ -75,22 +136,27 @@ function finalizarPedido(){
     pBebida = pBebida.replace(',','.');
     pSobremesa = pSobremesa.replace(',','.');
 
-    soma = Number(pPrato) + Number(pBebida) + Number(pSobremesa);
+    const soma = Number(pPrato) + Number(pBebida) + Number(pSobremesa);
 
-    
-    let msg = `Olá, gostaria de fazer o pedido:
+
+    msg = `Olá, gostaria de fazer o pedido:
     - Prato: ${tPrato} 
     - Bebida: ${tBebida}
     - Sobremesa: ${tSobremesa}
     Total: R$${soma.toFixed(2)}`;
-
-    const msgWP = encodeURIComponent(msg)
     
-    if ( tPrato !== undefined){
-        if ( tBebida !== undefined){
-            if ( tSobremesa !== undefined){
-                window.open(` https://wa.me//55999999999?text=${msgWP}`)
-            }
-        }
-    }
+
+    const nome = prompt('Seu nome');
+    const endereco = prompt('Seu endereco');
+
+    msg = msg  + `
+    Nome: ${nome} 
+    Endereco: ${endereco}`;
+
+
+    // preparar a mensage com encodeURIComponent
+    const msgWP = encodeURIComponent(msg);
+
+    // abrir o whatsapp web e encaminhar a mensagem
+    window.open(`http://wa.me/99999999999?text=${msgWP}`);
 }
