@@ -187,7 +187,7 @@ button{
     height: 61px;
     border-radius: 50px;
     background-color: #cbcbcb;
-    border-color: #cbcbcb;
+    border: none;
 
     font-family: "Roboto", sans-serif;
     font-weight: 400;
@@ -198,4 +198,6 @@ button{
 
 .confirmar-pedido{
     background-color: #32B72F;
+    font-weight: bolder;
 }
+
